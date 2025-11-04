@@ -6,7 +6,7 @@ namespace mindtechNewsletter.Server.Repositories
     {
         Task<Subscriber?> GetByEmailAsync(string email);
         Task AddAsync(Subscriber subscriber);
-        void UpdateAsync(Subscriber subscriber);
+        void Update(Subscriber subscriber);
         Task SaveChangesAsync();
     }
 }

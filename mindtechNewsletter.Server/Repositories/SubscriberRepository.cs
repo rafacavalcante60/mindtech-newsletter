@@ -23,7 +23,7 @@ namespace mindtechNewsletter.Server.Repositories
             await _context.Subscribers.AddAsync(subscriber);
         }
 
-        public void UpdateAsync(Subscriber subscriber)
+        public void Update(Subscriber subscriber)
         {
             _context.Subscribers.Update(subscriber);
         }
