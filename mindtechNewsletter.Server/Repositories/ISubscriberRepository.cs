@@ -8,5 +8,6 @@ namespace mindtechNewsletter.Server.Repositories
         Task AddAsync(Subscriber subscriber);
         void Update(Subscriber subscriber);
         Task SaveChangesAsync();
+        Task<List<Subscriber>> GetAllAsync();
     }
 }

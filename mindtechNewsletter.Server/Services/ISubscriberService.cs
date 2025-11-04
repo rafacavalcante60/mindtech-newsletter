@@ -7,5 +7,6 @@ namespace mindtechNewsletter.Server.Services
     {
         Task<ResponseModel<SubscriberReadDTO>> SubscribeAsync(SubscriberCreateDTO dto);
         Task<ResponseModel<SubscriberReadDTO>> UnsubscribeAsync(SubscriberCreateDTO dto);
+        Task<ResponseModel<List<SubscriberReadDTO>>> GetAllAsync();
     }
 }

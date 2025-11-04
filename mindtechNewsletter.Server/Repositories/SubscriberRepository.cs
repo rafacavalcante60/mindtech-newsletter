@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mindtechNewsletter.Server.Data;
+using mindtechNewsletter.Server.DTOs;
 using mindtechNewsletter.Server.Models;
+using mindtechNewsletter.Server.Responses;
 
 namespace mindtechNewsletter.Server.Repositories
 {
@@ -31,6 +33,11 @@ namespace mindtechNewsletter.Server.Repositories
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Subscriber>> GetAllAsync()
+        {
+            return await _context.Subscribers.ToListAsync();
         }
     }
 }

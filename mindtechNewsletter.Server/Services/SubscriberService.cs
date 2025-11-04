@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using mindtechNewsletter.Server.DTOs;
 using mindtechNewsletter.Server.Models;
 using mindtechNewsletter.Server.Repositories;
@@ -60,5 +61,13 @@ namespace mindtechNewsletter.Server.Services
             var readDto = _mapper.Map<SubscriberReadDTO>(existing);
             return ResponseModel<SubscriberReadDTO>.Ok(readDto, "Descadastro realizado com sucesso.");
         }
+
+        public async Task<ResponseModel<List<SubscriberReadDTO>>> GetAllAsync()
+        {
+            var subscribers = await _repository.GetAllAsync();
+            var dtos = _mapper.Map<List<SubscriberReadDTO>>(subscribers);
+            return ResponseModel<List<SubscriberReadDTO>>.Ok(dtos);
+        }
+
     }
 }
