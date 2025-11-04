@@ -31,4 +31,9 @@ Thumbs.db
 # Variáveis de ambiente
 
 .env
+
+# Banco que será gerado 
+
+newsletter.db
+
  
