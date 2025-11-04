@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using mindtechNewsletter.Server.Data;
+using mindtechNewsletter.Server.Repositories;
+using mindtechNewsletter.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //autoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//repository e service
+builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 
 builder.Services.AddControllers();
 
