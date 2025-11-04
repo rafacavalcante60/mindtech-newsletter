@@ -8,71 +8,57 @@ namespace mindtechNewsletter.Server.Services
 {
     public class SubscriberService : ISubscriberService
     {
-        private readonly ISubscriberRepository _repo;
+        private readonly ISubscriberRepository _repository;
         private readonly IMapper _mapper;
 
-        public SubscriberService(ISubscriberRepository repo, IMapper mapper)
+        public SubscriberService(ISubscriberRepository repository, IMapper mapper)
         {
-            _repo = repo;
+            _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<(ResponseModel<SubscriberReadDTO> Response, bool Created)> SubscribeAsync(SubscriberCreateDTO dto)
+        public async Task<ResponseModel<SubscriberReadDTO>> SubscribeAsync(SubscriberCreateDTO dto)
         {
-            if (dto == null || string.IsNullOrWhiteSpace(dto.Email))
-            {
-                return (ResponseModel<SubscriberReadDTO>.Fail("Email inválido."), false);
-            }
+            var existing = await _repository.GetByEmailAsync(dto.Email);
 
-            var email = dto.Email.Trim().ToLowerInvariant();
-            var existing = await _repo.GetByEmailAsync(email);
-
-            if (existing != null && existing.IsActive)
+            if (existing != null)
             {
-                return (ResponseModel<SubscriberReadDTO>.Fail("Email já inscrito."), false);
-            }
+                if (existing.IsActive)
+                {
+                    return ResponseModel<SubscriberReadDTO>.Fail("O email já está cadastrado.");
+                }
 
-            if (existing != null && !existing.IsActive)
-            {
                 existing.IsActive = true;
-                _repo.Update(existing);
-                await _repo.SaveChangesAsync();
+                _repository.Update(existing);
+                await _repository.SaveChangesAsync();
 
-                var reactivatedDto = _mapper.Map<SubscriberReadDTO>(existing);
-                return (ResponseModel<SubscriberReadDTO>.Ok(reactivatedDto, "Inscrição reativada."), false);
+                var readDtoReactivated = _mapper.Map<SubscriberReadDTO>(existing);
+                return ResponseModel<SubscriberReadDTO>.Ok(readDtoReactivated, "Inscrição reativada com sucesso.");
             }
 
-            var model = _mapper.Map<Subscriber>(dto);
-            model.Email = email;
-            model.IsActive = true;
+            var subscriber = _mapper.Map<Subscriber>(dto);
+            await _repository.AddAsync(subscriber);
+            await _repository.SaveChangesAsync();
 
-            await _repo.AddAsync(model);
-            await _repo.SaveChangesAsync();
-
-            var createdDto = _mapper.Map<SubscriberReadDTO>(model);
-            return (ResponseModel<SubscriberReadDTO>.Ok(createdDto, "Inscrito com sucesso."), true);
+            var readDto = _mapper.Map<SubscriberReadDTO>(subscriber);
+            return ResponseModel<SubscriberReadDTO>.Ok(readDto, "Inscrição realizada com sucesso.");
         }
 
-        public async Task<(ResponseModel<object> Response, bool NotFound)> UnsubscribeAsync(string email)
+        public async Task<ResponseModel<SubscriberReadDTO>> UnsubscribeAsync(SubscriberCreateDTO dto)
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return (ResponseModel<object>.Fail("Email inválido."), false);
-            }
-
-            var normalized = email.Trim().ToLowerInvariant();
-            var existing = await _repo.GetByEmailAsync(normalized);
+            var existing = await _repository.GetByEmailAsync(dto.Email);
 
             if (existing == null || !existing.IsActive)
             {
-                return (ResponseModel<object>.Fail("Email não encontrado ou já descadastrado."), true);
+                return ResponseModel<SubscriberReadDTO>.Fail("Email não encontrado ou já descadastrado.");
             }
 
             existing.IsActive = false;
-            _repo.Update(existing);
-            await _repo.SaveChangesAsync();
+            _repository.Update(existing);
+            await _repository.SaveChangesAsync();
 
-            return (ResponseModel<object>.Ok(null, "Descadastrado com sucesso."), false);
+            var readDto = _mapper.Map<SubscriberReadDTO>(existing);
+            return ResponseModel<SubscriberReadDTO>.Ok(readDto, "Descadastro realizado com sucesso.");
         }
     }
 }

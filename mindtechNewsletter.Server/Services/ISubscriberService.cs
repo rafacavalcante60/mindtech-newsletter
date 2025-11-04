@@ -5,7 +5,7 @@ namespace mindtechNewsletter.Server.Services
 {
     public interface ISubscriberService
     {
-        Task<(ResponseModel<SubscriberReadDTO> Response, bool Created)> SubscribeAsync(SubscriberCreateDTO dto);
-        Task<(ResponseModel<object> Response, bool NotFound)> UnsubscribeAsync(string email);
+        Task<ResponseModel<SubscriberReadDTO>> SubscribeAsync(SubscriberCreateDTO dto);
+        Task<ResponseModel<SubscriberReadDTO>> UnsubscribeAsync(SubscriberCreateDTO dto);
     }
 }
