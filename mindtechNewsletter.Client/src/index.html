@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Mindtech - IoT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <!-- Tela de inscrição -->
+<div class="container" id="subscribeScreen">
+  <div class="left-section">
+      <h1>Inscreva-se agora!</h1>
+      <p class="description">
+          Preencha o formulário abaixo para se inscrever e comece a receber nossas atualizações diretamente em sua caixa de entrada.
+      </p>
+
+      <div class="benefits">
+          <div class="benefit-item">
+              <div class="check-icon"></div>
+              <div class="benefit-text">
+                  <span class="benefit-title">Guias e Tutoriais:</span>
+                  Aprenda como implementar e otimizar soluções de IoT para sua empresa.
+              </div>
+          </div>
+          <div class="benefit-item">
+              <div class="check-icon"></div>
+              <div class="benefit-text">
+                  <span class="benefit-title">Notícias e Tendências:</span>
+                  Fique por dentro das últimas novidades e avanços no mundo do IoT.
+              </div>
+          </div>
+          <div class="benefit-item">
+              <div class="check-icon"></div>
+              <div class="benefit-text">
+                  <span class="benefit-title">Ofertas e Promoções:</span>
+                  Receba ofertas especiais e promoções exclusivas para assinantes da nossa newsletter.
+              </div>
+          </div>
+      </div>
+
+      <form id="subscribeForm" data-testid="subscribeForm">
+          <div class="form-group">
+              <label for="email">E-mail</label>
+              <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="email@email.com"
+                  required
+              >
+              <div class="error-message" id="errorMessage"></div>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+              Inscrever-se
+          </button>
+      </form>
+
+      <div class="unsubscribe-link">
+          <button id="unsubscribeBtn">Já é inscrito? Descadastrar</button>
+      </div>
+  </div>
+
+  <div class="right-section" style="position: relative; width: 400px; margin: 60px auto;">
+      <img src="../static/images/imagem.png" alt="IoT" style="width: 100%; height: auto; display: block;">
+      <img src="../static/images/logo-mindtech.svg" 
+           alt="Mindtech Design House & IoT" 
+           style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 200px; opacity: 0.6;">
+  </div>
+</div>
+
+<!-- Tela de sucesso (fora do subscribeScreen) -->
+<div class="container hidden" id="successScreen">
+    <div style="width: 100%; text-align: center; position: relative;">
+        <!-- Círculo gradiente atrás da mensagem -->
+        <div class="gradient-circle"></div>
+  
+        <div class="message-container">
+            <div class="success-icon"></div>
+            <h2 class="success-title">Obrigado por se inscrever<br>na nossa newsletter!</h2>
+            <p class="success-description">
+                Agora você faz parte da comunidade Mindtech e está a um passo de ficar atualizado com as últimas inovações e tendências em Internet das Coisas (IoT).
+            </p>
+            <div class="logo" style="margin-top: 30px;">
+              <img src="../static/images/logo-mindtech.svg" alt="Mindtech Design House & IoT">
+            </div>
+        </div>
+    </div>
+  </div>
+  
+
+    <!-- Modal de Unsubscribe -->
+    <div class="modal-overlay" id="unsubscribeModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2>Deseja se descadastrar?</h2>
+            <p>Digite seu e-mail abaixo para remover sua inscrição da newsletter. Sentiremos sua falta!</p>
+            
+            <div class="form-group">
+                <label for="unsubscribeEmail">E-mail</label>
+                <input 
+                    type="email" 
+                    id="unsubscribeEmail" 
+                    placeholder="email@email.com"
+                    required
+                >
+                <div class="error-message" id="unsubscribeError"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="cancelBtn">Cancelar</button>
+                <button class="modal-btn modal-btn-confirm" id="confirmUnsubscribeBtn">Descadastrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
