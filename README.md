@@ -80,7 +80,7 @@ dotnet run --urls "https://localhost:7035"
 > O swagger estará rodando em: `https://localhost:7035/swagger/index.html` - contendo os 2 endpoints da aplicação 
 e 1 endpoint para ver as inserções dentro do banco (ou utilize o endpoint direto em `https://localhost:7035/api/Subscriber/all`)
 
-![Endpoints Swagger](https://imgur.com/a/DI8x95R)
+![Endpoints Swagger](https://i.imgur.com/EEKZ4Ho.png)
 
 ---
 
