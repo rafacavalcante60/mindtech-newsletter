@@ -74,7 +74,7 @@ dotnet restore
 dotnet run --urls "https://localhost:7035"
 ```
 
-> A API ficará disponível em: `https://localhost:7035` (por padrão)
+A API ficará disponível em: `https://localhost:7035` (por padrão)
 
 
 > O swagger estará rodando em: `https://localhost:7035/swagger/index.html` - contendo os 2 endpoints da aplicação 
@@ -94,7 +94,7 @@ npm install -g http-server
 http-server .
 ```
 
-> O frontend ficará disponível em: `http://localhost:8080/index.html` (por padrão)
+O frontend ficará disponível em: `http://localhost:8080/index.html` (por padrão)
 
 ---
 
